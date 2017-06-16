@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<table class="table table-striped">
+        <tr>
+            <th>Data wizyty</th>
+            <th>Imię i nazwisko</th>
+			<th>Firma</th>
+            <th>Do kogo</th>
+			<th>Godzina wizyty</th>
+            <th>Godzina przyjazdu</th>
+			<th>Godzina wyjazdu</th>
+            <th>Komentarz</th>
+			<th>Wpisujący</th>
+			<th>Kawa</th>
+			<th>Lunch</th>
+            <th>Operacja</th>
+        </tr>
+        {% for data_of_visit in page_filter %}
+        <tr>
+            <td>{{data_of_visit.visit_date}}</td>
+            <td>{{data_of_visit.guest}}</td>
+            <td>{{data_of_visit.company}}</td>
+            <td>{{data_of_visit.visit_host}}</td>
+            <td>{{data_of_visit.plan_hour}}</td>
+            <td><strong>{{data_of_visit.arrive_hour|default_if_none:"Nie wpisano"}}</strong></td>
+            <td><strong>{{data_of_visit.exit_hour|default_if_none:"Nie wpisano"}}</strong></td>
+            <td>{{data_of_visit.comment}}</td>
+            <td>{{data_of_visit.key_in_user}}</td>
+            <td>{{data_of_visit.coffe|yesno:"Tak,Nie"}}</td>
+            <td>{{data_of_visit.lunch|yesno:"Tak,Nie"}}</td>
+      <td><a href="{% url 'update_arrive_hour' pk=data_of_visit.id %}" role="button" class="btn btn-success btn-xs">Aktualizuj godzine przyjazdu</a><br /><a href="{% url 'update_exit_hour' pk=data_of_visit.id %}"  role="button" class="btn btn-danger btn-xs">Aktualizuj godzine wyjazdu</a><td>
+        </tr>
+    {% endfor %}
+
+	</table>
+	
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.guest }}" "{{ object.plan_hour }}"?</p>
+	<input type="submit" value="TAK" class="btn btn-danger btn-xs"/>
+	<a href="{% url 'appadmin' %}"  role="button" class="btn btn-success btn-xs">NIE</a>
+</form>
+{% endblock %}

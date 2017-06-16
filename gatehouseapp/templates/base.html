@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Gatehouse App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <style type="text/css">
+	table td {
+	text-align:center !important;
+	vertical-align:middle !important;
+	}
+	table th {
+	text-align:center !important;
+	vertical-align:middle !important;
+	}
+	#date_menu {
+    display: inline-block; //Or display: inline;
+	}
+	#hid{
+     visibility: hidden;
+	}
+	</style>
+</head>
+<body>
+    <div class="container-fluid">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <hr>
+    <footer>
+
+    </footer>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-pl.js"></script>
+	<script>
+	$.datepicker.setDefaults($.datepicker.regional['pl']);
+  $(function() {
+    $( "#id_dw").datepicker({
+	dateFormat: "yy-mm-dd"});
+  });
+  </script>
+</body>
+</html>

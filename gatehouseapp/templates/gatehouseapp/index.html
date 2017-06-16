@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4"><a class="btn btn-default" href="{% url 'appadmin' %}" role="button">ADMIN</a></div>
+        <div class="col-md-4"><a class="btn btn-default" href="{% url 'todayvisit' %}" role="button">GATEHOUSE</a></div>
+        <div class="col-md-4"><a class="btn btn-default" href="{% url 'cateringurl' %}" role="button">CATERING</a></div>
+    </div>
+{% endblock %}

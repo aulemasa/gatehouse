@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+    {% if form.errors %}
+    <p>Podano niepoprawny login bądź hasło. Proszę spróbować ponownie.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form-group">
+    {% csrf_token %}
+     <table>
+         <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+         </tr>
+         <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+         </tr>
+     </table>
+
+     <input type="submit" class="btn btn-primary" value="LOGIN" />
+     <input type="hidden" name="next" value="{{ next }}" />
+     </form>
+
+    {% endblock %}
