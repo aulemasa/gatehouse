@@ -16,7 +16,6 @@ from .filters import DataFilter
 from .forms import VisitCreateForm
 from .models import VisitData
 # Create your views here.
-@login_required(login_url='accounts/login/')
 def homePage(request):
     return render(request, 'gatehouseapp/index.html')
 

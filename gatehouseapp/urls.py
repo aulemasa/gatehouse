@@ -22,7 +22,7 @@ import gatehouseapp.views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', auth_views.login, name='login'),
-    url(r'^accounts/logout/$', auth_views.logout, {'next_page': '/'},name='logout'),
+    url(r'^accounts/logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^$', gatehouseapp.views.homePage, name='home'),
     url(r'^gatehouseadmin/$', gatehouseapp.views.addVisit, name='appadmin'),
     url(r'^gatehousearch/$', gatehouseapp.views.archive, name='arch'),
