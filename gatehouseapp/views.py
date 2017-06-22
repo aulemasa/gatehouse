@@ -16,6 +16,7 @@ from .filters import DataFilter
 from .forms import VisitCreateForm
 from .models import VisitData
 # Create your views here.
+
 def homePage(request):
     return render(request, 'gatehouseapp/index.html')
 
@@ -31,7 +32,7 @@ def pagination(strona, zmienna):
     return page_filter
 
 
-@login_required(login_url='accounts/login/')
+@login_required(login_url='/accounts/login/')
 def addVisit(request):
     form = VisitCreateForm()
     visit_details = DataFilter(request.GET, queryset=VisitData.objects.filter(visit_date=datetime.date.today()).order_by('plan_hour'))
@@ -64,7 +65,7 @@ class UpdateVisitData(UpdateView):
     success_url = reverse_lazy('appadmin')
 
 
-@login_required(login_url='accounts/login/')
+@login_required(login_url='/accounts/login/')
 def archive(request):
     form = VisitCreateForm()
     visit_details = DataFilter(request.GET, queryset=VisitData.objects.all().exclude(visit_date__gte = datetime.date.today()-datetime.timedelta(1)).order_by('plan_hour'))
