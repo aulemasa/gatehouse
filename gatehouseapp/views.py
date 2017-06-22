@@ -17,6 +17,7 @@ from .forms import VisitCreateForm
 from .models import VisitData
 # Create your views here.
 
+
 def homePage(request):
     return render(request, 'gatehouseapp/index.html')
 
