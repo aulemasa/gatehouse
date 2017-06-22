@@ -11,7 +11,7 @@ Quick start
 -----------
 1. Install Django Gatehouse
 
-    pip installdjango-gatehouse
+    pip install django-gatehouse
 
 2. Add "gatehouseapp" to your INSTALLED_APPS setting like this::
 
