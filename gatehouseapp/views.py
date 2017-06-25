@@ -11,10 +11,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView, DeleteView
+from gatehouseapp.filters import DataFilter
+from gatehouseapp.forms import VisitCreateForm
+from gatehouseapp.models import VisitData
 
-from .filters import DataFilter
-from .forms import VisitCreateForm
-from .models import VisitData
+
 # Create your views here.
 
 
