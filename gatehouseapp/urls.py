@@ -12,15 +12,12 @@ Class-based views
 Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
-from django.contrib import admin
+import gatehouseapp.views
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
-import gatehouseapp.views
-
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^accounts/logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^$', gatehouseapp.views.homePage, name='home'),
