@@ -1,5 +1,6 @@
 #coding: utf-8
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from gatehouseapp.models import VisitData
 
@@ -56,3 +57,18 @@ class VisitDataModelTest(TestCase):
         visitdataobject = VisitData.objects.get(id=1)
         field_label = visitdataobject._meta.get_field('key_in_user').verbose_name
         self.assertEquals(field_label, 'Użytkownik'.decode('utf8'))
+
+
+class VisitDataViewsTest(TestCase):
+
+    def test_homePage_url_acces_by_name(self):
+        resp = self.client.get(reverse('home'))
+        self.assertEqual(resp.status_code, 200)
+
+    def test_login_required_addVisit_view(self):
+        response = self.client.get(reverse('appadmin'))
+        self.assertRedirects(response, 'http://testserver/accounts/login/?next=/gatehouseadmin/')
+
+    def test_login_required_archive_view(self):
+        response = self.client.get(reverse('arch'))
+        self.assertRedirects(response, 'http://testserver/accounts/login/?next=/gatehousearch/')
