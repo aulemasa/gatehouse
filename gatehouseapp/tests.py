@@ -1,4 +1,6 @@
 #coding: utf-8
+import datetime
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -10,7 +12,7 @@ class VisitDataModelTest(TestCase):
     @classmethod
     def setUp(self):
         user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
-        VisitData.objects.create(visit_date='2017-06-23', guest="Jan Kowalski", company='Test Company',
+        VisitData.objects.create(visit_date=datetime.date.today(), guest="Jan Kowalski", company='Test Company',
                                  visit_host='HOST', plan_hour='13:00', arrive_hour='13:01', exit_hour='13:02',
                                  comment='Coment', key_in_user=user)
 
@@ -71,12 +73,10 @@ class VisitDataViewsTest(TestCase):
     @classmethod
     def setUp(self):
         user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
-        VisitData.objects.create(visit_date='2017-06-23', guest="Jan Kowalski", company='Test Company',
+        VisitData.objects.create(visit_date=datetime.date.today(), guest="Jan Kowalski", company='Test Company',
                                  visit_host='HOST', plan_hour='13:00', arrive_hour='13:01', exit_hour='13:02',
-                                 comment='Coment', key_in_user=user)
-        myobject = VisitData.objects.filter(id=1)
+                                 comment='Coment', key_in_user=user, coffe=True, lunch=True)
 
-        return myobject
 
     def test_homePage_url_acces_by_name(self):
         resp = self.client.get(reverse('home'))
@@ -97,6 +97,27 @@ class VisitDataViewsTest(TestCase):
     def test_login_required_CateringListView(self):
         response = self.client.get(reverse('cateringurl'))
         self.assertRedirects(response, 'http://testserver/accounts/login/?next=/catering')
+
+    def test_logged_in_addVisit_correct_template(self):
+        login = self.client.login(username='john', password='johnpassword')
+        resp = self.client.get(reverse('appadmin'))
+        # Check our user is logged in
+        self.assertEqual(str(resp.context['user']), 'john')
+        self.assertEqual(resp.status_code, 200)
+        # Check we used correct template
+        self.assertTemplateUsed(resp, 'gatehouseapp/addvisit.html')
+
+    def test_TodayVisitForGatehouePersonListView_queryset(self):
+        login = self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse('todayvisit'))
+        self.assertQuerysetEqual(response.context['page_filter'],
+                                 ['<VisitData: 2017-06-27: Jan Kowalski HOST 13:00:00 john>'])
+
+    def test_CateringListView_queryset(self):
+        login = self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse('cateringurl'))
+        self.assertQuerysetEqual(response.context['page_filter'],
+                                 ['<VisitData: 2017-06-27: Jan Kowalski HOST 13:00:00 john>'])
 
 class VisitDataFormTest(TestCase):
 
