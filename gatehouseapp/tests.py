@@ -111,13 +111,23 @@ class VisitDataViewsTest(TestCase):
         login = self.client.login(username='john', password='johnpassword')
         response = self.client.get(reverse('todayvisit'))
         self.assertQuerysetEqual(response.context['page_filter'],
-                                 ['<VisitData: 2017-06-27: Jan Kowalski HOST 13:00:00 john>'])
+                                 ['<VisitData: 2017-06-28: Jan Kowalski HOST 13:00:00 john>'])
 
     def test_CateringListView_queryset(self):
         login = self.client.login(username='john', password='johnpassword')
         response = self.client.get(reverse('cateringurl'))
         self.assertQuerysetEqual(response.context['page_filter'],
-                                 ['<VisitData: 2017-06-27: Jan Kowalski HOST 13:00:00 john>'])
+                                 ['<VisitData: 2017-06-28: Jan Kowalski HOST 13:00:00 john>'])
+
+    def test_redirects_to_appadmin_on_success(self):
+        login = self.client.login(username='john', password='johnpassword')
+        resp = self.client.post(reverse('appadmin'), kwargs={'id':1,})
+        self.assertEqual(resp.status_code, 200)
+
+    def test_redirects_to_arch_on_success(self):
+        login = self.client.login(username='john', password='johnpassword')
+        resp = self.client.post(reverse('arch'), kwargs={'id':1,})
+        self.assertEqual(resp.status_code, 200)
 
 class VisitDataFormTest(TestCase):
 
